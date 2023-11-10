@@ -47,4 +47,4 @@ jobs:
       #   run: eas update --auto
 
       - name: EAS Build
-        run: npm install -g eas-cli && eas build -p android --profile preview
+        run: npm install -g eas-cli && eas build -p android --profile preview --non-interactive
