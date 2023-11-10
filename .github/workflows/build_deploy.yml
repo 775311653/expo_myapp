@@ -15,7 +15,7 @@ on:
 
 jobs:
   update:
-    name: EAS Update
+    name: EAS Build
     runs-on: ubuntu-latest
     steps:
       - name: Check for EXPO_TOKEN
