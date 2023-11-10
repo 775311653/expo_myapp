@@ -1,15 +1,15 @@
-name: update
-on: 
+name: build_deploy
+on:
   workflow_dispatch:
-    inputs:
-      project:
-        description: 'Project to build. Must be one of "admin", "interpreter", or "user".'
-        required: true
-        type: choice
-        options: 
-          - admin
-          - interpreter
-          - user
+#    inputs:
+#      project:
+#        description: 'Project to build. Must be one of "admin", "interpreter", or "user".'
+#        required: true
+#        type: choice
+#        options:
+#          - admin
+#          - interpreter
+#          - user
   push:
     branches: [ main ]
 
