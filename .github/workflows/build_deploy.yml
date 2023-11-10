@@ -1,15 +1,15 @@
 name: build_deploy
 on:
   workflow_dispatch:
-#    inputs:
-#      project:
-#        description: 'Project to build. Must be one of "admin", "interpreter", or "user".'
-#        required: true
-#        type: choice
-#        options:
-#          - admin
-#          - interpreter
-#          - user
+  #    inputs:
+  #      project:
+  #        description: 'Project to build. Must be one of "admin", "interpreter", or "user".'
+  #        required: true
+  #        type: choice
+  #        options:
+  #          - admin
+  #          - interpreter
+  #          - user
   push:
     branches: [ main ]
 
@@ -40,11 +40,14 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Use npm mirror
+        run: npm config set registry https://registry.npmjs.org/
+
       - name: Install dependencies
         run: npm install
 
-     # - name: Publish update
-     #   run: eas update --auto
+      # - name: Publish update
+      #   run: eas update --auto
 
       - name: EAS Build
         run: npm install -g eas-cli && eas build -p android --profile preview
