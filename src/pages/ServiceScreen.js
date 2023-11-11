@@ -30,28 +30,6 @@ const ServiceScreen = observer(function () {
   }, []);
 
   async function get_user_info() {
-  //  let resUserInfo = await this.$api.webapp.user.get_user_info();
-    //         console.log(resUserInfo);
-    //         if (resUserInfo.code !== 0) {
-    //           this.$message.error('Failed to fetch user info.');
-    //           return;
-    //         }
-    //         let userInfo = resUserInfo.data;
-    //         console.log(userInfo.transactions, this.$route.params.id)
-    //         let transaction = userInfo.transactions.find((transaction) => transaction.service_id == this.$route.params.id);
-    //         console.log(transaction);
-    //
-    //         if (transaction) {
-    //           this.balance = transaction.amount;
-    //         } else {
-    //           this.balance = 0;
-    //         }
-    //         let service = transaction.service;
-    //         this.serviceInfo = service;
-    //         this.serviceName = service.name;
-    //         this.costPerService = service.price;
-    //         this.remainingChances = Number.parseInt(this.balance / this.costPerService);
-
     let resUserInfo = await api.user.get_user_info();
     if (resUserInfo.code !== 0) return;
     let userInfo = resUserInfo.data;
@@ -144,16 +122,53 @@ const ServiceScreen = observer(function () {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: '#f5f5f5', // 轻微灰色背景
   },
   serviceInfo: {
     marginBottom: 20,
     alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#fff', // 白色背景突出服务信息区域
+    borderRadius: 10,
+    marginHorizontal: 20,
+    marginTop: 20,
+    shadowColor: '#000', // 添加阴影效果
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   header: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 10, // 增加标题下的间距
+    color: '#333', // 深色文字
   },
-  // 其他样式...
+  chatContainer: {
+    flex: 1,
+    marginHorizontal: 20,
+  },
+  chatMessages: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff', // 白色背景突出聊天区域
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000', // 添加阴影效果
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  chatInput: {
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ddd', // 边框颜色
+  },
+  // ...其他样式
 });
 
 
