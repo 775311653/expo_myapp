@@ -5,12 +5,16 @@ import AppNavigator from "./src/pages/AppNavigator";
 import {PaperProvider} from "react-native-paper";
 import appConfig from './app.json';
 import theme from "./src/assets/theme";
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 
 export default function App() {
   return (
-    <PaperProvider theme={theme.darkTheme}>
-      <AppNavigator/>
-    </PaperProvider>
+    <RootSiblingParent>
+      <PaperProvider theme={theme.darkTheme}>
+        <AppNavigator/>
+      </PaperProvider>
+    </RootSiblingParent>
   );
 }
 

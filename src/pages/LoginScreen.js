@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import {View, StyleSheet, ToastAndroid, Text} from 'react-native';
 import {observer, useLocalObservable} from 'mobx-react';
 import {useNavigation} from "@react-navigation/native";
-import {Button, TextInput} from "react-native-paper"; // 使用 useLocalObservable 代替 inject 和 observer
+import {Button, TextInput} from "react-native-paper";
+import Toast from "react-native-root-toast";
+import storage from "../utils/storage";
 let api = require('./../api');
+let store = require('./../store');
 
 
 const LoginScreen = observer(function () {
@@ -17,8 +20,10 @@ const LoginScreen = observer(function () {
   const handleLogin = async () => {
     // 登录逻辑
     let res = await api.user.login(data);
-    if (res.code !== 0) return ToastAndroid.show(res.message, ToastAndroid.SHORT);
-    ToastAndroid.show('登录成功', ToastAndroid.SHORT);
+    if (res.code !== 0) return Toast.show(res.message);
+    storage.setItem('token', res.data?.token);
+    storage.setItem('user', res.data?.user);
+    Toast.show('login success');
     // 导航逻辑到HomeLoginScreen
     navigation.navigate('HomeLoginScreen');
   };
@@ -51,18 +56,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: px(20),
     backgroundColor: '#fff',
   },
   input: {
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    marginBottom: 20,
-    padding: 10,
+    marginBottom: px(20),
+    padding: px(10),
     fontSize: px(18),
   },
   buttonContainer: {
-    marginTop: 10,
+    marginTop: px(10),
     button: {
       alignSelf: 'center',
       width: px(100),

@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 import store from '../store'
+import Toast from "react-native-root-toast";
+import storage from "../utils/storage";
 
 let config = require('../config/config');
 let baseUrl = config.url.adminBaseUrl;
@@ -13,20 +15,24 @@ const service = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use(
-    config => {
+    async config => {
         // 在发送请求之前做些什么
 
-        if (store.persist.token) {
-            // 让每个请求携带令牌
-            // ['X-Token']是一个自定义头键
-            // 请根据实际情况修改
-            config.headers['X-Token'] = store.persist.token;
+        let token = await storage.getItem('token');
+        let user = await storage.getItem('user');
+        // Toast.show('token: ' + token);
+        Toast.show('user: ' + user);
+        if (token) {
+            config.headers['Accept-Language'] = 'en';
+            config.headers['Authorization'] = 'Bearer ' + token;
+            config.headers['userid'] = user.id;
         }
         return config
     },
     error => {
         // 处理请求错误
         // message.error(error.message);
+        Toast.show(error.message);
         console.log(error) // for debug
         return Promise.reject(error)
     }
@@ -52,11 +58,13 @@ service.interceptors.response.use(
         // 50008:非法令牌;50012:其他客户登录;50014:令牌过期;
         if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
             // message.error('Please log in again');
-            store.persist.token = '';
+            Toast.show('Please log in again');
+            storage.setItem('token', '');
             window.location.reload();
         } else if (res.code !== 0 || res.code === 60000) {
             // 如果自定义代码不是10000，则判断为错误
             // message.error(res.msg,5);
+            Toast.show(res.msg);
         }
         return res
 

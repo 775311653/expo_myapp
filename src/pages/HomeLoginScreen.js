@@ -1,27 +1,38 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button, StyleSheet, ToastAndroid, Text} from 'react-native';
-import {observer, useLocalObservable} from 'mobx-react'; // 使用 useLocalObservable 代替 inject 和 observer
+import {observer, useLocalObservable} from 'mobx-react';
+import Toast from "react-native-root-toast";
+import {Card} from "react-native-paper"; // 使用 useLocalObservable 代替 inject 和 observer
 let api = require('./../api');
-
 
 const HomeLoginScreen = observer(function () {
   const data = useLocalObservable(() => ({
-    email: '',
-    password: '',
+    services: [],
   }));
 
-  const handleLogin = async () => {
-    // 登录逻辑
-    let res = await api.user.login(data);
-    if (res.code !== 0) return ToastAndroid.show(res.message, ToastAndroid.SHORT);
-    return ToastAndroid.show('登录成功', ToastAndroid.SHORT);
-    // 导航逻辑
-  };
+  React.useEffect(() => {
+    get_services();
+  }, []);
+
+  async function get_services() {
+    let res = await api.service.get_services();
+    if (res.code !== 0) return;
+    data.services = res.data;
+  }
 
   return (
     <View style={styles.container}>
-
-      <Text>hello login home</Text>
+      <Text>Select Service</Text>
+      <View>
+        {data.services.map((service) => {
+          return (
+            <Card key={service.id} onPress={() => {
+            }}>
+              <Card.Title title={service.name} subtitle={service.description}/>
+            </Card>
+          )
+        })}
+      </View>
 
     </View>
   );
@@ -33,16 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#fff',
-  },
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    marginBottom: 20,
-    padding: 10,
-    fontSize: 18,
-  },
-  buttonContainer: {
-    marginTop: 10,
   },
 });
 
