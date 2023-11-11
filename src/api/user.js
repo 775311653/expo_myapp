@@ -9,6 +9,10 @@ let user = {
   register(params) {
     return axios.post(`/webapp/user/register`, params);
   },
+  // 获取用户信息
+  get_user_info(params) {
+    return axios.get(`/webapp/user/get_user_info`, { params });
+  }
 }
 
 module.exports = user;
