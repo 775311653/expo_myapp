@@ -81,8 +81,11 @@ const ServiceScreen = observer(function () {
         <Text>剩余次数: {data.remainingChances}</Text>
         <Text>每次费用: {data.costPerService} 元</Text>
         <Text>余额: {data.balance} 元</Text>
-        <Button mode={'elevated'} onPress={() => { /* 充值逻辑 */
-        }}>充值</Button>
+        <Button mode={'elevated'}
+                style={styles.button}
+                labelStyle={styles.buttonLabel}
+                onPress={() => { /* 充值逻辑 */
+                }}>充值 </Button>
       </View>
       {/* 其他 UI 组件 */}
       <View style={styles.chatContainer}>
@@ -99,7 +102,10 @@ const ServiceScreen = observer(function () {
           placeholder="输入你的问题"
           onSubmitEditing={send_message}
         />
-        <Button mode={'elevated'} onPress={send_message}>发送</Button>
+        <Button mode={'elevated'}
+                style={styles.button}
+                labelStyle={styles.buttonLabel}
+                onPress={send_message}>发送 </Button>
       </View>
       {/* 充值对话框逻辑 */}
       {/*{showRechargeDialog && (*/}
@@ -167,6 +173,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor: '#ddd', // 边框颜色
+  },
+  button: {
+    margin:'auto',
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'center',
+  },
+  buttonLabel: {
+    fontSize: 16, // 可以根据需要调整字体大小
   },
   // ...其他样式
 });
