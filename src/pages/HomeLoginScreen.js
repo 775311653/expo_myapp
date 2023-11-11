@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, TextInput, Button, StyleSheet, ToastAndroid, Text} from 'react-native';
+import React from 'react';
+import {View, ScrollView, Text, StyleSheet} from 'react-native';
 import {observer, useLocalObservable} from 'mobx-react';
-import Toast from "react-native-root-toast";
-import {Card} from "react-native-paper"; // 使用 useLocalObservable 代替 inject 和 observer
+import {Card} from 'react-native-paper';
+
 let api = require('./../api');
 
 const HomeLoginScreen = observer(function () {
@@ -21,29 +21,54 @@ const HomeLoginScreen = observer(function () {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Select Service</Text>
-      <View>
-        {data.services.map((service) => {
-          return (
-            <Card key={service.id} onPress={() => {
-            }}>
-              <Card.Title title={service.name} subtitle={service.description}/>
-            </Card>
-          )
-        })}
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>Select Service</Text>
+      <View style={styles.cardContainer}>
+        {data.services.map((service) => (
+          <Card key={service.id} style={styles.card} onPress={() => {
+          }}>
+            <Card.Title
+              title={service.name}
+              subtitle={service.description}
+              titleStyle={styles.cardTitle}
+              subtitleStyle={styles.cardSubtitle}
+            />
+          </Card>
+        ))}
       </View>
-
-    </View>
+    </ScrollView>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
     padding: 20,
-    backgroundColor: '#fff',
+  },
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+  },
+  cardContainer: {
+    flexDirection: 'column',
+  },
+  card: {
+    marginBottom: 10,
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+  },
+  cardTitle: {
+    fontSize: 18,
+    color: '#000',
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: '#555',
   },
 });
 
