@@ -2,10 +2,13 @@ import React from 'react';
 import {View, ScrollView, Text, StyleSheet} from 'react-native';
 import {observer, useLocalObservable} from 'mobx-react';
 import {Card} from 'react-native-paper';
+import {useNavigation} from "@react-navigation/native";
 
 let api = require('./../api');
 
 const HomeLoginScreen = observer(function () {
+  const navigation = useNavigation(); // 获取 navigation 对象
+
   const data = useLocalObservable(() => ({
     services: [],
   }));
@@ -26,6 +29,7 @@ const HomeLoginScreen = observer(function () {
       <View style={styles.cardContainer}>
         {data.services.map((service) => (
           <Card key={service.id} style={styles.card} onPress={() => {
+            navigation.navigate('ServiceScreen', {service_id: service.id});
           }}>
             <Card.Title
               title={service.name}
