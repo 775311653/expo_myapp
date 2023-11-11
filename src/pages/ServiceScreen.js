@@ -101,6 +101,8 @@ const ServiceScreen = observer(function () {
           onChangeText={(text) => data.inputMessage = text}
           placeholder="输入你的问题"
           onSubmitEditing={send_message}
+          multiline={true} // 设置多行属性
+          numberOfLines={4} // 可以设置初始显示的行数
         />
         <Button mode={'elevated'}
                 style={styles.button}
