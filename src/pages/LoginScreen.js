@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View, TextInput, Button, StyleSheet, ToastAndroid, Text} from 'react-native';
+import {View, StyleSheet, ToastAndroid, Text} from 'react-native';
 import {observer, useLocalObservable} from 'mobx-react';
-import {useNavigation} from "@react-navigation/native"; // 使用 useLocalObservable 代替 inject 和 observer
+import {useNavigation} from "@react-navigation/native";
+import {Button, TextInput} from "react-native-paper"; // 使用 useLocalObservable 代替 inject 和 observer
 let api = require('./../api');
 
 
@@ -26,7 +27,7 @@ const LoginScreen = observer(function () {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="email"
+        label="email"
         value={data.email}
         onChangeText={text => (data.email = text)}
       />
@@ -34,13 +35,13 @@ const LoginScreen = observer(function () {
 
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        label="password"
         value={data.password}
         onChangeText={text => (data.password = text)}
         secureTextEntry
       />
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={handleLogin} color="#1e90ff"/>
+        <Button mode={'elevated'} onPress={handleLogin} style={styles.buttonContainer.button}>Login</Button>
       </View>
     </View>
   );
@@ -58,10 +59,15 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
     marginBottom: 20,
     padding: 10,
-    fontSize: 18,
+    fontSize: px(18),
   },
   buttonContainer: {
     marginTop: 10,
+    button: {
+      alignSelf: 'center',
+      width: px(100),
+      fontSize: px(30),
+    }
   },
 });
 
