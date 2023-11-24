@@ -15,7 +15,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.xp775311653.expomyapp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
